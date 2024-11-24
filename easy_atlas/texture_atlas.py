@@ -307,6 +307,8 @@ def createAtlas(aItems, txtFinalFilename, sizeX, sizeY, photoshopPath, resamplin
         cmds.confirmDialog(message = "Photoshop path does not exist.", button = ["ok"])
         return
 
+    if not resamplingMode:
+        resamplingMode = 'automatic'
     resampleMode = ResamplingModeValues.index(resamplingMode) + 1
 
     commandList = [txtFinalFilename, sizeX, sizeY, resampleMode]
