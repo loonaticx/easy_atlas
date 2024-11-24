@@ -14,6 +14,11 @@ diaWarning = "Warning"
 
 SupportedFileExtensions = [".jpg", ".png", ".tga", ".psd"]
 
+import sys
+PythonVersion_Major = sys.version_info[0]
+PythonVersion_Minor = sys.version_info[1]
+
+
 """
 Resampling Modes
 """
@@ -43,3 +48,4 @@ ResamplingExportValues = {
     "Automatic": ResamplingModeValues[7],
     "Preserve Details": ResamplingModeValues[8],
 }
+

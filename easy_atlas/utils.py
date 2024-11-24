@@ -1,4 +1,12 @@
-import ConfigParser, os
+# python 2.7 uses ConfigParser, python 3 uses configparser
+
+import os
+from .EAGlobals import PythonVersion_Major
+
+if PythonVersion_Major <= 2:
+    import ConfigParser
+else:
+    import configparser as ConfigParser
 
 
 class INIHandler:
@@ -52,7 +60,11 @@ class INIHandler:
         if not os.path.exists(configDirectory):
             os.makedirs(configDirectory)
 
-        with open(configFilename, 'w+b') as configfile:
+        mode = "w"
+        if PythonVersion_Major == 2:
+            mode += "+b"
+
+        with open(configFilename, mode) as configfile:
             config.write(configfile)
 
         if debug:

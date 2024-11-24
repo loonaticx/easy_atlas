@@ -6,6 +6,14 @@ from PySide2.QtWidgets import *
 from shiboken2 import wrapInstance
 import maya.cmds as cmds
 
+from .EAGlobals import PythonVersion_Major
+
+
+def parse_type(ptr):
+    if PythonVersion_Major <= 2:
+        return long(ptr)
+    return int(ptr)
+
 
 class RawWidget:
     """Auxiliary class that is used to grab widgets."""
@@ -25,7 +33,7 @@ def loadQtWindow(uiFile, windowName):
     global mayaMainWindow
     mayaMainWindow = None
     mayaMainWindowPtr = omui.MQtUtil.mainWindow()
-    mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
+    mayaMainWindow = wrapInstance(parse_type(mayaMainWindowPtr), QWidget)
 
     # Load UI
     loader = QUiLoader()
@@ -44,5 +52,5 @@ def getControl(rawWidget):
         ptr = omui.MQtUtil.findMenuItem(rawWidget.name)
     else:
         ptr = omui.MQtUtil.findControl(rawWidget.name)
-    foundControl = wrapInstance(long(ptr), rawWidget.type)
+    foundControl = wrapInstance(parse_type(ptr), rawWidget.type)
     return foundControl
