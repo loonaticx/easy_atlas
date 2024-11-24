@@ -33,10 +33,11 @@ def waitForPSConfirmation(s, TCP_PORT):
         if not data:
             break
         if data == str(TCP_PORT):
-            refreshTextures = """string $fileNodes[]  = `ls -type file`;for($f in $fileNodes) {string $attrName = $f + ".fileTextureName";string $fileName = `getAttr $attrName`;setAttr -type "string" $attrName $fileName;}"""
+            refreshTextures = """string $fileNodes[]  = `ls -type file`;for($f in $fileNodes) {string $attrName = $f 
+            + ".fileTextureName";string $fileName = `getAttr $attrName`;setAttr -type "string" $attrName $fileName;}"""
             cmds.evalDeferred('import maya.mel as mel;mel.eval(\'%s\')' % refreshTextures)
 
-        #conn.send(data)
+        # conn.send(data)
     conn.close()
 
 
